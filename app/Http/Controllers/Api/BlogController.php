@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controllers\HasMiddleware;
@@ -59,6 +60,8 @@ class BlogController extends Controller implements HasMiddleware
     public function show(Blog $blog): JsonResponse
     {
         $blog->load('author');
+        $comments = Comment::where('blog_id', $blog->id)->get();
+        $blog->comments = $comments;
 
         return response()->json([
             'success' => true,

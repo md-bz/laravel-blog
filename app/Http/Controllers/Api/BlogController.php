@@ -52,7 +52,6 @@ class BlogController extends Controller implements HasMiddleware
 
         $blog = Blog::create($data);
 
-        logger($blog->content);
         return response()->json([
             'success' => true,
             'data' => $blog,

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
 use App\Models\Comment;
+use App\Services\Formatting\FormatterFactory;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controllers\HasMiddleware;
@@ -31,7 +32,7 @@ class BlogController extends Controller implements HasMiddleware
             'success' => true,
             'data' => $blogs,
             'message' => 'Blogs retrieved successfully'
-        ]);
+        ], 200, [], JSON_UNESCAPED_SLASHES);
     }
 
     /**
@@ -45,13 +46,18 @@ class BlogController extends Controller implements HasMiddleware
         ]);
 
         $data['author_id'] = $request->user()->id;
+
+        $formatter = FormatterFactory::make('mention');
+        $data['content'] = $formatter->format($data['content']);
+
         $blog = Blog::create($data);
 
+        logger($blog->content);
         return response()->json([
             'success' => true,
             'data' => $blog,
             'message' => 'Blog created successfully'
-        ], 201);
+        ], 201, [], JSON_UNESCAPED_SLASHES);
     }
 
     /**
@@ -67,7 +73,7 @@ class BlogController extends Controller implements HasMiddleware
             'success' => true,
             'data' => $blog,
             'message' => 'Blog retrieved successfully'
-        ]);
+        ], 200, [], JSON_UNESCAPED_SLASHES);
     }
 
     /**
@@ -94,7 +100,7 @@ class BlogController extends Controller implements HasMiddleware
             'success' => true,
             'data' => $blog,
             'message' => 'Blog updated successfully'
-        ]);
+        ], 200, [], JSON_UNESCAPED_SLASHES);
     }
 
     /**

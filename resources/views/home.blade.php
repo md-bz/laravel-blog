@@ -1,6 +1,7 @@
 <h1>use routes :</h1>
 <ul>
     <li> GET / </li>
+    <li> GET /blog </li>
     <li> GET api </li>
     <li> GET api/blog </li>
     <li> POST api/blog </li>

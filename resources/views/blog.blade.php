@@ -1,18 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+@vite(['resources/js/fetchBlogs.js'])
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    @vite(['resources/js/fetchBlogs.js'])
-
-    <title>blogs</title>
-</head>
-
-<body>
+<x-layout>
+    </main>
     <ul id="blogs">
     </ul>
-</body>
-
-</html>
+</x-layout>
